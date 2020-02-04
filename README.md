@@ -1,14 +1,45 @@
-# flutter_video_info
+# video_info
 
-A new flutter plugin project.
+This plugin uses MediaMetadataRetriever class of native android to get basic meta information 
+of a video file.
 
-## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+<b>The following info can be extracted by this plugin:</b>
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+`title`
+`path`
+`author`
+`mimetype`
+`height`
+`width`
+`filesize`
+`duration`
+`orientation`
+`date`
+`framerate`
+`location`
+
+###### This plugin is presently working only on `Android`. (if anyone wants to contribute for `ios` feel free to [PR here..](https://github.com/anandnet/flutter_video_info))
+
+
+## Installation & Uses
+
+Add `flutter_video_info` as a dependency in your pubspec.yaml file ([what?](https://flutter.io/using-packages/)).
+```
+dependencies:
+    flutter_video_info: <current version>
+```
+
+Import FlutterVideoInfo in your dart file.
+```dart
+import 'package:flutter_video_info/flutter_video_info.dart';
+
+final videoInfo = FlutterVideoInfo();
+
+String videoFilePath = "your_video_file_path";
+var info = await videoInfo.getVideoInfo(videoFilePath);
+
+//String title = info.title;   to get title of video
+//similarly path,author,mimetype,height,width,filesize,duration,orientation,date,framerate,location can be extracted.
+
+```
