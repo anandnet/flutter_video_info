@@ -22,7 +22,7 @@ import java.sql.Date;
 import java.nio.file.Path;
 import java.nio.file.Files;
 
-/** VideoInfoPlugin */
+/** FlutterVideoInfoPlugin */
 public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler {
 
   private String chName = "flutter_video_info";
