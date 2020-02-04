@@ -1,4 +1,4 @@
-# video_info
+# flutter_video_info
 
 This plugin uses MediaMetadataRetriever class of native android to get basic meta information 
 of a video file.
