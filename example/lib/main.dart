@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,31 +10,32 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  getExternalStoragePermission() async {
+        await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+  }
+
+  final videoInfo = FlutterVideoInfo();
 
   @override
   void initState() {
+    getExternalStoragePermission();
     super.initState();
-    initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterVideoInfo.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+  String info = "";
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
+  getVideoInfo() async {
+    /// here file path of video required
+    String videoFilePath = "storage/emulated/0/Geocam/Videos/V.mp4";
+    var a = await videoInfo.getVideoInfo(videoFilePath);
     setState(() {
-      _platformVersion = platformVersion;
+      info =
+          "title=> ${a.title}\npath=> ${a.path}\nauthor=> ${a.author}\nmimetype=> ${a.mimetype}";
+      info +=
+          "\nheight=> ${a.height}\nwidth=> ${a.width}\nfileSize=> ${a.filesize} Bytes\nduration=> ${a.duration} milisec";
+      info +=
+          "\norientation=> ${a.orientation}\ndate=> ${a.date}\nframerate=> ${a.framerate}";
+      info += "\nlocation=> ${a.location}";
     });
   }
 
@@ -44,11 +43,22 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.plus_one),
+            onPressed: () {
+              getVideoInfo();
+            }),
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Flutter_Video_info example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Center(
+            child: Text(
+              info,
+              style: TextStyle(fontSize: 21),
+            ),
+          ),
         ),
       ),
     );
