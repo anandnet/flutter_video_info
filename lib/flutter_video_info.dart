@@ -19,6 +19,7 @@ class FlutterVideoInfo {
       print(e);
       print(
           "[VideoInfoError:]\n----Check video path\n----Check External Storage Permission(in case reading data from external storage)\n");
+      return null;
     }
   }
 }
