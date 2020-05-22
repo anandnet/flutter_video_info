@@ -19,7 +19,6 @@ of a video file.
 `framerate`
 `location`
 
-###### This plugin is presently working only on `Android`. (if anyone wants to contribute for `ios` feel free to [PR here..](https://github.com/anandnet/flutter_video_info))
 
 
 ## Installation & Uses
