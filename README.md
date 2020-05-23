@@ -42,3 +42,9 @@ var info = await videoInfo.getVideoInfo(videoFilePath);
 //similarly path,author,mimetype,height,width,filesize,duration,orientation,date,framerate,location can be extracted.
 
 ```
+
+## for iOS
+If you select a video from your photo library, 
+Add the following keys to your Info.plist file, located in /ios/Runner/Info.plist:
+
+NSPhotoLibraryUsageDescription - describe why your app needs permission for the photo library. This is called Privacy - Photo Library Usage Description in the visual editor.
