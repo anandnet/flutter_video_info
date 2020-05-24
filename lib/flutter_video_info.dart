@@ -7,7 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 
 class FlutterVideoInfo {
-  static const MethodChannel _channel = const MethodChannel('flutter_video_info');
+  static const MethodChannel _channel =
+      const MethodChannel('flutter_video_info');
 
   Future<VideoData> getVideoInfo(String path) async {
     assert(path != null);

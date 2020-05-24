@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -11,14 +12,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   getExternalStoragePermission() async {
-        await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+    await PermissionHandler().requestPermissions([PermissionGroup.storage]);
   }
 
   final videoInfo = FlutterVideoInfo();
 
   @override
   void initState() {
-    getExternalStoragePermission();
+    if (Platform.isAndroid) {
+      getExternalStoragePermission();
+    }
     super.initState();
   }
 
