@@ -30,7 +30,7 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     let url = URL(fileURLWithPath: path)
     let asset = AVURLAsset(url: url)
 
-    let creationDate = asset.creationDate?.value as? Date ?? Date()
+    let creationDate = asset.creationDate?.dateValue
 
     let formatter = DateFormatter()
     formatter.timeZone = TimeZone.current
@@ -59,7 +59,11 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     jsonObj["title"] = asset.url.lastPathComponent
     jsonObj["mimetype"] = mimetype
     jsonObj["author"] = ""
-    jsonObj["date"] = formatter.string(from: creationDate)
+    if let date = creationDate {
+        jsonObj["date"] = formatter.string(from: date)
+    } else {
+        jsonObj["date"] = ""
+    }
     jsonObj["width"] = size?.width
     jsonObj["height"] = size?.height
     jsonObj["location"] = ""
