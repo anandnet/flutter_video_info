@@ -30,7 +30,7 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     let url = URL(fileURLWithPath: path)
     let asset = AVURLAsset(url: url)
 
-    let creationDate = asset.creationDate?.value as! Date
+    let creationDate = asset.creationDate?.value as? Date ?? Date()
 
     let formatter = DateFormatter()
     formatter.timeZone = TimeZone.current
