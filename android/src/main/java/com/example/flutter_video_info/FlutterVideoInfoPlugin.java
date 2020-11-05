@@ -69,7 +69,9 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
             Date date = readFormat.parse(dateString);
             SimpleDateFormat outFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
             dateString = outFormat.format(date);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String mimeType = getData(MediaMetadataRetriever.METADATA_KEY_MIMETYPE, mediaRetriever);
         String location = getData(MediaMetadataRetriever.METADATA_KEY_LOCATION, mediaRetriever);
