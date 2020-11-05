@@ -1,6 +1,18 @@
 package com.example.flutter_video_info;
 
+import android.content.Context;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
+import android.os.Build;
+
 import androidx.annotation.NonNull;
+
+import org.json.JSONObject;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
@@ -8,23 +20,6 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
-import android.net.Uri;
-import android.os.Build;
-
-import io.flutter.plugin.common.MethodChannel;
-
-import org.json.JSONObject;
-
-import java.io.File;
-import java.lang.Exception;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Date;
-import java.nio.file.Path;
-import java.nio.file.Files;
 
 /**
  * FlutterVideoInfoPlugin
@@ -68,7 +63,16 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
 
         String author = getData(MediaMetadataRetriever.METADATA_KEY_AUTHOR, mediaRetriever);
         String title = getData(MediaMetadataRetriever.METADATA_KEY_TITLE, mediaRetriever);
-        String date = getData(MediaMetadataRetriever.METADATA_KEY_DATE, mediaRetriever);
+        String dateString = getData(MediaMetadataRetriever.METADATA_KEY_DATE, mediaRetriever);
+        try {
+            SimpleDateFormat readFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss.SSS", Locale.getDefault());
+            Date date = readFormat.parse(dateString);
+            SimpleDateFormat outFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            dateString = outFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         String mimeType = getData(MediaMetadataRetriever.METADATA_KEY_MIMETYPE, mediaRetriever);
         String location = getData(MediaMetadataRetriever.METADATA_KEY_LOCATION, mediaRetriever);
         String frameRateStr = getData(MediaMetadataRetriever.METADATA_KEY_CAPTURE_FRAMERATE, mediaRetriever);
@@ -91,7 +95,7 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
             json.put("title", title);
             json.put("mimetype", mimeType);
             json.put("author", author);
-            json.put("date", date);
+            json.put("date", dateString);
             json.put("width", widthStr);
             json.put("height", heightStr);
             json.put("location", location);
