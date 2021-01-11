@@ -52,7 +52,11 @@ class VideoData {
   /// int
   int height;
 
-  /// [Android] API level 17, (0,90,180)
+  /// [Android] API level 17, (0,90,180,270)
+  /// (0 - LandscapeRight)
+  /// (90 - Portrait)
+  /// (180 - LandscapeLeft)
+  /// (270 - portraitUpsideDown)
   int orientation;
 
   /// bytes
@@ -82,7 +86,7 @@ class VideoData {
         ? json['title']
         : (basename(json['path']).split(".")[0]);
     mimetype = (json["mimetype"]);
-    date = ((json["date"]).replaceAll("T", " ")).replaceAll("Z", "");
+    date = (json["date"]);
     location = (json["location"]);
     framerate = double.tryParse("${json["framerate"]}");
     author = (json['author']);

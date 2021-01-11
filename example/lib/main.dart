@@ -26,10 +26,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   String info = "";
+  String videoFilePath = "";
 
   getVideoInfo() async {
     /// here file path of video required
-    String videoFilePath = "storage/emulated/0/Geocam/Videos/V.mp4";
+    if (Platform.isIOS) {
+      videoFilePath =
+          "/Users/User/Library/Developer/CoreSimulator/Devices/6A0D4244-1DEB-49C3-9837-C08E19DAED31/data/Media/DCIM/100APPLE/IMG_0011.mp4";
+    } else if (Platform.isAndroid) {
+      videoFilePath = "storage/emulated/0/Geocam/Videos/4.mp4";
+    }
     var a = await videoInfo.getVideoInfo(videoFilePath);
     setState(() {
       info =
@@ -46,13 +52,24 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.plus_one),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: Colors.white,
+            label: Text(
+              "Get Info",
+              style: TextStyle(color: Colors.black),
+            ),
+            icon: Icon(
+              Icons.video_call_outlined,
+              color: Colors.purple,
+            ),
             onPressed: () {
               getVideoInfo();
             }),
         appBar: AppBar(
-          title: const Text('Flutter_Video_info example app'),
+          centerTitle: true,
+          backgroundColor: Colors.purple,
+          title: const Text('Video Info'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(30.0),

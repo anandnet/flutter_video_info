@@ -1,7 +1,7 @@
-import Flutter
-import UIKit
 import AVFoundation
+import Flutter
 import MobileCoreServices
+import UIKit
 
 public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -21,8 +21,9 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     }
 
     if let myArgs = args as? [String: Any],
-       let path = myArgs["path"] as? String {
-     getVidInfo(path: path, result: result)
+       let path = myArgs["path"] as? String
+    {
+      getVidInfo(path: path, result: result)
     }
   }
 
@@ -36,33 +37,34 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     formatter.timeZone = TimeZone.current
     formatter.locale = Locale.current
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-    let durationTime = TimeInterval(round(Float(asset.duration.value) / Float(asset.duration.timescale)))
+    let durationTime = round(CMTimeGetSeconds(asset.duration) * 1000)
 
     let tracks = asset.tracks(withMediaType: .video)
     let fps = tracks.first?.nominalFrameRate
     let size = tracks.first?.naturalSize
     let mimetype = mimeTypeForPath(path: path)
+    let orientation = asset.orientation
 
-    var fileSize : UInt64 = 0
+    var fileSize: UInt64 = 0
 
     do {
-        let attr = try FileManager.default.attributesOfItem(atPath: path)
-        fileSize = attr[FileAttributeKey.size] as! UInt64
-        let dict = attr as NSDictionary
-        fileSize = dict.fileSize()
+      let attr = try FileManager.default.attributesOfItem(atPath: path)
+      fileSize = attr[FileAttributeKey.size] as! UInt64
+      let dict = attr as NSDictionary
+      fileSize = dict.fileSize()
     } catch {
-        print("Error: \(error)")
+      print("Error: \(error)")
     }
 
-    var jsonObj = Dictionary<String,Any>()
+    var jsonObj = [String: Any]()
     jsonObj["path"] = path
     jsonObj["title"] = asset.url.lastPathComponent
     jsonObj["mimetype"] = mimetype
     jsonObj["author"] = ""
     if let date = creationDate {
-        jsonObj["date"] = formatter.string(from: date)
+      jsonObj["date"] = formatter.string(from: date)
     } else {
-        jsonObj["date"] = ""
+      jsonObj["date"] = ""
     }
     jsonObj["width"] = size?.width
     jsonObj["height"] = size?.height
@@ -70,14 +72,14 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     jsonObj["framerate"] = fps
     jsonObj["duration"] = durationTime
     jsonObj["filesize"] = fileSize
-    //jsonObj["orientation"] = ""
+    jsonObj["orientation"] = orientation
 
     do {
-        let jsonData = try JSONSerialization.data(withJSONObject: jsonObj)
-        let jsonStr = String(bytes: jsonData, encoding: .utf8)!
-        result(jsonStr)
-    } catch (let e) {
-        result(e)
+      let jsonData = try JSONSerialization.data(withJSONObject: jsonObj)
+      let jsonStr = String(bytes: jsonData, encoding: .utf8)!
+      result(jsonStr)
+    } catch let e {
+      result(e)
     }
   }
 
@@ -86,10 +88,29 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     let pathExtension = url.pathExtension
 
     if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension! as NSString, nil)?.takeRetainedValue() {
-        if let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() {
-            return mimetype as String
-        }
+      if let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() {
+        return mimetype as String
+      }
     }
     return "application/octet-stream"
+  }
+}
+
+extension AVURLAsset {
+  var orientation: String {
+    guard let tf = tracks(withMediaType: AVMediaType.video).first?.preferredTransform else {
+      return ""
+    }
+
+    if tf.a == 0, tf.b == 1.0, tf.d == 0 {
+      return "90"
+    } else if tf.a == 0, tf.b == -1.0, tf.d == 0 {
+      return "270"
+    } else if tf.a == 1.0, tf.b == 0, tf.c == 0 {
+      return "0"
+    } else if tf.a == -1.0, tf.b == 0, tf.c == 0 {
+      return "180"
+    }
+    return ""
   }
 }
