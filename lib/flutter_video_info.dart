@@ -2,7 +2,6 @@ library flutter_video_info;
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 
@@ -10,8 +9,7 @@ class FlutterVideoInfo {
   static const MethodChannel _channel =
       const MethodChannel('flutter_video_info');
 
-  Future<VideoData> getVideoInfo(String path) async {
-    assert(path != null);
+  Future<VideoData?> getVideoInfo(String path) async {
     try {
       final jsonStr = await _channel.invokeMethod('getVidInfo', {"path": path});
       final jsonMap = json.decode(jsonStr);
@@ -26,47 +24,47 @@ class FlutterVideoInfo {
 }
 
 class VideoData {
-  String path;
+  String? path;
 
   /// string
-  String title;
+  String? title;
 
   /// string
-  String author;
+  String? author;
 
   /// string
-  String mimetype;
+  String? mimetype;
 
   /// string
-  String date;
+  String? date;
 
   /// string
-  String location;
+  String? location;
 
   /// double
-  double framerate;
+  double? framerate;
 
   /// int
-  int width;
+  int? width;
 
   /// int
-  int height;
+  int? height;
 
   /// [Android] API level 17, (0,90,180,270)
   /// (0 - LandscapeRight)
   /// (90 - Portrait)
   /// (180 - LandscapeLeft)
   /// (270 - portraitUpsideDown)
-  int orientation;
+  int? orientation;
 
   /// bytes
-  int filesize;
+  int? filesize;
 
   /// millisecond
-  double duration;
+  double? duration;
 
   VideoData({
-    @required this.path,
+    required this.path,
     this.title,
     this.author,
     this.mimetype,

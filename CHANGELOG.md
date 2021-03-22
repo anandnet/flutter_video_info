@@ -1,3 +1,8 @@
+## 1.2.0
+
+* [BREAKING CHANGE] Migrated to null-safety
+* Updated dependencies
+
 ## 1.1.0
 
 *  video duration fixed to milliseconds (ios)
