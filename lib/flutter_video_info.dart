@@ -2,71 +2,67 @@ library flutter_video_info;
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+import 'dart:developer' as developer;
 
 class FlutterVideoInfo {
   static const MethodChannel _channel =
       const MethodChannel('flutter_video_info');
 
-  Future<VideoData> getVideoInfo(String path) async {
-    assert(path != null);
-    try {
-      final jsonStr = await _channel.invokeMethod('getVidInfo', {"path": path});
-      final jsonMap = json.decode(jsonStr);
-      return VideoData.fromJson(jsonMap);
-    } catch (e) {
-      print(e);
-      print(
-          "[VideoInfoError:]\n----Check video path\n----Check External Storage Permission(in case reading data from external storage)\n");
-      return null;
+  Future<VideoData?> getVideoInfo(String path) async {
+    final jsonStr = await _channel.invokeMethod('getVidInfo', {"path": path});
+    final jsonMap = json.decode(jsonStr);
+    if (!jsonMap["isfileexist"]) {
+      developer.log('Video file path does not exists. ',
+          name: 'FlutterVideoInfo');
     }
+    return VideoData.fromJson(jsonMap);
   }
 }
 
 class VideoData {
-  String path;
+  String? path;
 
   /// string
-  String title;
+  String? title;
 
   /// string
-  String author;
+  String? author;
 
   /// string
-  String mimetype;
+  String? mimetype;
 
   /// string
-  String date;
+  String? date;
 
   /// string
-  String location;
+  String? location;
 
   /// double
-  double framerate;
+  double? framerate;
 
   /// int
-  int width;
+  int? width;
 
   /// int
-  int height;
+  int? height;
 
   /// [Android] API level 17, (0,90,180,270)
   /// (0 - LandscapeRight)
   /// (90 - Portrait)
   /// (180 - LandscapeLeft)
   /// (270 - portraitUpsideDown)
-  int orientation;
+  int? orientation;
 
   /// bytes
-  int filesize;
+  int? filesize;
 
   /// millisecond
-  double duration;
+  double? duration;
 
   VideoData({
-    @required this.path,
+    required this.path,
     this.title,
     this.author,
     this.mimetype,
@@ -82,19 +78,22 @@ class VideoData {
 
   VideoData.fromJson(Map<String, dynamic> json) {
     path = (json['path']);
-    title = (json['title'] != null)
-        ? json['title']
-        : (basename(json['path']).split(".")[0]);
-    mimetype = (json["mimetype"]);
-    date = (json["date"]);
-    location = (json["location"]);
+    title = json["isfileexist"] ? (basename(json['path']).split(".")[0]) : null;
+    mimetype = (json["mimetype"] == null || json["mimetype"] == "")
+        ? null
+        : (json["mimetype"]);
+    date = (json["date"] == null || json["date"] == '') ? null : json["date"];
+    location = (json["location"] == null || json["location"] == '')
+        ? null
+        : json["location"];
     framerate = double.tryParse("${json["framerate"]}");
-    author = (json['author']);
+    author = (json['author'] == null || json['author'] == '')
+        ? null
+        : json['author'];
     width = int.tryParse('${json['width']}');
     height = int.tryParse('${json['height']}');
-    orientation =
-        (json['orientation'] != null) ? int.parse(json["orientation"]) : null;
+    orientation = int.tryParse(json["orientation"]);
     filesize = json['filesize'];
-    duration = double.tryParse('${json['duration']}');
+    duration = json["isfileexist"] ? double.tryParse('${json['duration']}'):null;
   }
 }

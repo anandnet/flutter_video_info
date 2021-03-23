@@ -30,6 +30,8 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
   private func getVidInfo(path: String, result: FlutterResult) {
     let url = URL(fileURLWithPath: path)
     let asset = AVURLAsset(url: url)
+    let fileManager = FileManager.default
+    let isFileExist = fileManager.fileExists(atPath: path)
 
     let creationDate = asset.creationDate?.dateValue
 
@@ -58,7 +60,6 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
 
     var jsonObj = [String: Any]()
     jsonObj["path"] = path
-    jsonObj["title"] = asset.url.lastPathComponent
     jsonObj["mimetype"] = mimetype
     jsonObj["author"] = ""
     if let date = creationDate {
@@ -73,6 +74,7 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     jsonObj["duration"] = durationTime
     jsonObj["filesize"] = fileSize
     jsonObj["orientation"] = orientation
+    jsonObj["isfileexist"] = isFileExist
 
     do {
       let jsonData = try JSONSerialization.data(withJSONObject: jsonObj)

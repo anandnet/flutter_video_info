@@ -1,4 +1,4 @@
-<a href="https://pub.dev/packages/flutter_video_info" rel="nofollow"><img src="https://img.shields.io/badge/pub-v1.0.1-blue" alt="pub package" data-canonical-src="https://img.shields.io/pub/v/sliding_up_panel.svg" style="max-width:100%;"></a>
+<a href="https://pub.dev/packages/flutter_video_info" rel="nofollow"><img src="https://img.shields.io/badge/pub-v1.2.0-blue" alt="pub package" data-canonical-src="https://img.shields.io/pub/v/sliding_up_panel.svg" style="max-width:100%;"></a>
 <img src="https://img.shields.io/badge/Platform-android%20%7C%20ios-green" alt="pub package" data-canonical-src="https://img.shields.io/pub/v/sliding_up_panel.svg" style="max-width:100%;">
 # flutter_video_info
 
@@ -50,3 +50,8 @@ If you select a video from your photo library,
 Add the following keys to your Info.plist file, located in /ios/Runner/Info.plist:
 
 NSPhotoLibraryUsageDescription - describe why your app needs permission for the photo library. This is called Privacy - Photo Library Usage Description in the visual editor.
+
+
+## Troubleshooting
+  Checkout <a href="troubleshoot.md">here<a/>
+
