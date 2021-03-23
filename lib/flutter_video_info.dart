@@ -14,7 +14,7 @@ class FlutterVideoInfo {
     final jsonStr = await _channel.invokeMethod('getVidInfo', {"path": path});
     final jsonMap = json.decode(jsonStr);
     if (!jsonMap["isfileexist"]) {
-      developer.log('Video file path does not exists. ',
+      developer.log('Video file path is wrong or does not exists. Please recheck file path.',
           name: 'FlutterVideoInfo');
     }
     return VideoData.fromJson(jsonMap);
