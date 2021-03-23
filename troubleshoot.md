@@ -29,7 +29,7 @@ E/flutter (20966): <asynchronous suspension>
 ```
 ### Possible Solution:
 #### For All Devies:
-   This exception generally come due to absence of <b>External Storage Permission </b>in case file accesed from external storage
+   This exception generally come due to absence of <b>External Storage Permission </b>in case file accessed from external storage
 
 ####  For Android 10: 
   If Exception (java.lang.IllegalArgumentException) comes,
