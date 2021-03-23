@@ -1,0 +1,28 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_video_info (1.1.0):
+    - Flutter
+  - "permission_handler (4.4.0+hotfix.4)":
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_video_info (from `.symlinks/plugins/flutter_video_info/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_video_info:
+    :path: ".symlinks/plugins/flutter_video_info/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_video_info: a932e1b0da369bba95c3a14b7f61d5f8b0d03280
+  permission_handler: 8278954f2382902f63f00dd8828769c0bd6d511b
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.1
