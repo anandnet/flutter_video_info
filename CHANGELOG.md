@@ -1,4 +1,4 @@
-##1.2.0
+## 1.2.0
 * Null Safety Support
 * Prevent Exception when file path incorrect
 * Minor changes
