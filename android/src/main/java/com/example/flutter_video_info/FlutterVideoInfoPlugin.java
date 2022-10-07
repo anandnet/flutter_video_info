@@ -63,7 +63,12 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
         double filesize;
         if(isFileExists){
             MediaMetadataRetriever mediaRetriever = new MediaMetadataRetriever();
-            mediaRetriever.setDataSource(context, Uri.fromFile(file));
+            try {
+                mediaRetriever.setDataSource(context, Uri.fromFile(file));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
 
             author = getData(MediaMetadataRetriever.METADATA_KEY_AUTHOR, mediaRetriever);
             dateString = getData(MediaMetadataRetriever.METADATA_KEY_DATE, mediaRetriever);
@@ -89,12 +94,9 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
                 orientation = null;
             }
             
-            try 
-            {
-                mediaRetriever.release();
-            } 
-            catch (IOException e) 
-            {
+            try {
+                 mediaRetriever.release();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             
