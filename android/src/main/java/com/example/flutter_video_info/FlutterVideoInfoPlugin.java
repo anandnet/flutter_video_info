@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -63,7 +64,7 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
         double filesize;
         if(isFileExists){
             MediaMetadataRetriever mediaRetriever = new MediaMetadataRetriever();
-            mediaRetriever.setDataSource(context, Uri.fromFile(file));
+                mediaRetriever.setDataSource(context, Uri.fromFile(file));
 
             author = getData(MediaMetadataRetriever.METADATA_KEY_AUTHOR, mediaRetriever);
             dateString = getData(MediaMetadataRetriever.METADATA_KEY_DATE, mediaRetriever);
@@ -89,7 +90,11 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
                 orientation = null;
             }
 
-            mediaRetriever.release();
+            try {
+                mediaRetriever.release();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
         }else{
             author="";
             dateString="";
