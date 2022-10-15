@@ -14,7 +14,8 @@ class FlutterVideoInfo {
     final jsonStr = await _channel.invokeMethod('getVidInfo', {"path": path});
     final jsonMap = json.decode(jsonStr);
     if (!jsonMap["isfileexist"]) {
-      developer.log('Video file path is wrong or does not exists. Please recheck file path.',
+      developer.log(
+          'Video file path is wrong or does not exists. Please recheck file path.',
           name: 'FlutterVideoInfo');
     }
     return VideoData.fromJson(jsonMap);
@@ -94,6 +95,7 @@ class VideoData {
     height = int.tryParse('${json['height']}');
     orientation = int.tryParse(json["orientation"]);
     filesize = json['filesize'];
-    duration = json["isfileexist"] ? double.tryParse('${json['duration']}'):null;
+    duration =
+        json["isfileexist"] ? double.tryParse('${json['duration']}') : null;
   }
 }

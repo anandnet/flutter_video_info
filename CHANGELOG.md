@@ -1,3 +1,7 @@
+## 1.3.0
+* Fixed IO Exception (android 33)
+
+
 ## 1.2.0
 * Null Safety Support
 * Prevent Exception when file path incorrect
