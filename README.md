@@ -1,4 +1,4 @@
-<a href="https://pub.dev/packages/flutter_video_info" rel="nofollow"><img src="https://img.shields.io/badge/pub-v1.2.0-blue" alt="pub package" data-canonical-src="https://img.shields.io/pub/v/sliding_up_panel.svg" style="max-width:100%;"></a>
+<a href="https://pub.dev/packages/flutter_video_info" rel="nofollow"><img src="https://img.shields.io/badge/pub-v1.3.0-blue" alt="pub package" data-canonical-src="https://img.shields.io/pub/v/sliding_up_panel.svg" style="max-width:100%;"></a>
 <img src="https://img.shields.io/badge/Platform-android%20%7C%20ios-green" alt="pub package" data-canonical-src="https://img.shields.io/pub/v/sliding_up_panel.svg" style="max-width:100%;">
 # flutter_video_info
 
@@ -53,5 +53,9 @@ NSPhotoLibraryUsageDescription - describe why your app needs permission for the 
 
 
 ## Troubleshooting
-  Checkout <a href="troubleshoot.md">here<a/>
+  Checkout <a href="https://github.com/anandnet/flutter_video_info/blob/master/troubleshoot.md">here<a/>
+    
+## PR is welcomed
+  Anyone can pr for these  <a href="https://github.com/anandnet/flutter_video_info/issues">issues<a/><br/>
+  Thanks for your PR Over IOException issue <a href="https://github.com/martinale14">@martinale14</a>,<a href="https://github.com/devianl2">@devianl2</a> and <a href="https://github.com/nagendarbalajij-devs">@nagendarbalajij-devs</a>
 
