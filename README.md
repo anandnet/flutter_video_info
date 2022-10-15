@@ -56,6 +56,7 @@ NSPhotoLibraryUsageDescription - describe why your app needs permission for the 
   Checkout <a href="https://github.com/anandnet/flutter_video_info/blob/master/troubleshoot.md">here<a/>
     
 ## PR is welcomed
-  Anyone can pr for these  <a href="https://github.com/anandnet/flutter_video_info/issues">issues<a/><br/>
+  Anyone can pr for these  <a href="https://github.com/anandnet/flutter_video_info/issues">issues<a/>
+  
   Thanks for your PR Over IOException issue <a href="https://github.com/martinale14">@martinale14</a>,<a href="https://github.com/devianl2">@devianl2</a> and <a href="https://github.com/nagendarbalajij-devs">@nagendarbalajij-devs</a>
 
