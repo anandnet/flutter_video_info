@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.io.*;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
@@ -63,7 +63,12 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
         double filesize;
         if(isFileExists){
             MediaMetadataRetriever mediaRetriever = new MediaMetadataRetriever();
-            mediaRetriever.setDataSource(context, Uri.fromFile(file));
+            try {
+                mediaRetriever.setDataSource(context, Uri.fromFile(file));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
 
             author = getData(MediaMetadataRetriever.METADATA_KEY_AUTHOR, mediaRetriever);
             dateString = getData(MediaMetadataRetriever.METADATA_KEY_DATE, mediaRetriever);
@@ -88,8 +93,13 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
             } else {
                 orientation = null;
             }
-
-            mediaRetriever.release();
+            
+            try {
+                 mediaRetriever.release();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
         }else{
             author="";
             dateString="";
