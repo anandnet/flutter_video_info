@@ -1,6 +1,6 @@
 <a href="https://pub.dev/packages/flutter_video_info" rel="nofollow"><img src="https://img.shields.io/badge/pub-v1.3.0-blue" alt="pub package" data-canonical-src="https://img.shields.io/pub/v/sliding_up_panel.svg" style="max-width:100%;"></a>
 <img src="https://img.shields.io/badge/Platform-android%20%7C%20ios-green" alt="pub package" data-canonical-src="https://img.shields.io/pub/v/sliding_up_panel.svg" style="max-width:100%;">
-# flutter_video_info
+# flutter_video_info  1.3.0
 
 This plugin uses MediaMetadataRetriever class of native android to get basic meta information 
 of a video file.
