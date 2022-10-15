@@ -1,5 +1,5 @@
 ## 1.3.0
-* Fixed IO Exception (android 33)
+* Fixed IO Exception (android API level 33)
 
 
 ## 1.2.0
