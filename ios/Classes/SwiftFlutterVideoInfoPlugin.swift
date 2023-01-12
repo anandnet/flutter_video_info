@@ -69,7 +69,7 @@ public class SwiftFlutterVideoInfoPlugin: NSObject, FlutterPlugin {
     }
     jsonObj["width"] = size?.width
     jsonObj["height"] = size?.height
-    jsonObj["location"] = ""
+    jsonObj["location"] = asset.metadata.first(where: { $0.identifier == .quickTimeMetadataLocationISO6709 })?.value?.description
     jsonObj["framerate"] = fps
     jsonObj["duration"] = durationTime
     jsonObj["filesize"] = fileSize

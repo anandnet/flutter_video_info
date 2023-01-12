@@ -2,9 +2,11 @@ library flutter_video_info;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
-import 'dart:developer' as developer;
 
 class FlutterVideoInfo {
   static const MethodChannel _channel =
@@ -84,9 +86,15 @@ class VideoData {
         ? null
         : (json["mimetype"]);
     date = (json["date"] == null || json["date"] == '') ? null : json["date"];
-    location = (json["location"] == null || json["location"] == '')
-        ? null
-        : json["location"];
+    if (Platform.isIOS) {
+      location = (json["location"] == null || json["location"] == '')
+          ? null
+          : (json["location"] as String).split('+').skip(1).take(2).join(',');
+    } else {
+      location = (json["location"] == null || json["location"] == '')
+          ? null
+          : json["location"];
+    }
     framerate = double.tryParse("${json["framerate"]}");
     author = (json['author'] == null || json['author'] == '')
         ? null
