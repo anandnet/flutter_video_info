@@ -2,9 +2,10 @@ library flutter_video_info;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
+
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
-import 'dart:developer' as developer;
 
 class FlutterVideoInfo {
   static const MethodChannel _channel =
