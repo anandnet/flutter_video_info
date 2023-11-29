@@ -12,7 +12,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   getExternalStoragePermission() async {
-    await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.videos,
+      Permission.photos,
+      Permission.storage,
+    ].request();
   }
 
   final videoInfo = FlutterVideoInfo();
@@ -39,12 +43,12 @@ class _MyAppState extends State<MyApp> {
     var a = await videoInfo.getVideoInfo(videoFilePath);
     setState(() {
       info =
-          "title=> ${a.title}\npath=> ${a.path}\nauthor=> ${a.author}\nmimetype=> ${a.mimetype}";
+          "title=> ${a?.title}\npath=> ${a?.path}\nauthor=> ${a?.author}\nmimetype=> ${a?.mimetype}";
       info +=
-          "\nheight=> ${a.height}\nwidth=> ${a.width}\nfileSize=> ${a.filesize} Bytes\nduration=> ${a.duration} milisec";
+          "\nheight=> ${a?.height}\nwidth=> ${a?.width}\nfileSize=> ${a?.filesize} Bytes\nduration=> ${a?.duration} milisec";
       info +=
-          "\norientation=> ${a.orientation}\ndate=> ${a.date}\nframerate=> ${a.framerate}";
-      info += "\nlocation=> ${a.location}";
+          "\norientation=> ${a?.orientation}\ndate=> ${a?.date}\nframerate=> ${a?.framerate}";
+      info += "\nlocation=> ${a?.location}";
     });
   }
 
