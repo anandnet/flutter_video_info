@@ -1,3 +1,9 @@
+## 1.3.2
+* enhance: The latitude and longitude formats obtained by Android and iOS are unified by @yohom
+* flutter 3.16 support added.(android name space added to support AGP 8
+  compile sdk updated to 33
+  example update to fix build error) by @shofizone
+
 ## 1.3.1
 * Fixed IO Exception (android API level 33)
 
