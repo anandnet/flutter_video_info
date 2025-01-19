@@ -19,15 +19,12 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**
  * FlutterVideoInfoPlugin
  */
 public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler {
-
-    private String chName = "flutter_video_info";
-    public static Context context;
+    public  Context context;
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -35,11 +32,6 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
                 "flutter_video_info");
         channel.setMethodCallHandler(new FlutterVideoInfoPlugin());
         context = flutterPluginBinding.getApplicationContext();
-    }
-
-    public static void registerWith(Registrar registrar_) {
-        final MethodChannel channel = new MethodChannel(registrar_.messenger(), "flutter_video_info");
-        channel.setMethodCallHandler(new FlutterVideoInfoPlugin());
     }
 
     @Override
@@ -76,6 +68,7 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
                 SimpleDateFormat readFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss.SSS", Locale.getDefault());
                 Date date = readFormat.parse(dateString);
                 SimpleDateFormat outFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                assert date != null;
                 dateString = outFormat.format(date);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,17 +76,17 @@ public class FlutterVideoInfoPlugin implements FlutterPlugin, MethodCallHandler 
 
             mimeType = getData(MediaMetadataRetriever.METADATA_KEY_MIMETYPE, mediaRetriever);
             location = getData(MediaMetadataRetriever.METADATA_KEY_LOCATION, mediaRetriever);
-            frameRateStr = getData(MediaMetadataRetriever.METADATA_KEY_CAPTURE_FRAMERATE, mediaRetriever);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                frameRateStr = getData(MediaMetadataRetriever.METADATA_KEY_CAPTURE_FRAMERATE, mediaRetriever);
+            }else{
+                frameRateStr="";
+            }
             durationStr = getData(MediaMetadataRetriever.METADATA_KEY_DURATION, mediaRetriever);
             widthStr = getData(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH, mediaRetriever);
             heightStr = getData(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT, mediaRetriever);
             filesize = file.length();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                orientation = getData(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION, mediaRetriever);
-            } else {
-                orientation = null;
-            }
-            
+            orientation = getData(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION, mediaRetriever);
+
             try {
                  mediaRetriever.release();
             } catch (Exception e) {
