@@ -3,13 +3,13 @@ description: Demonstrates how to use the flutter_video_info plugin.
 publish_to: 'none'
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
 
 
 dependencies:
   flutter:
     sdk: flutter
-  permission_handler: ^11.1.0
+  permission_handler: ^11.3.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
