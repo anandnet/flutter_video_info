@@ -1,3 +1,6 @@
+## 1.3.3
+* Android dependencies update and fixed flutter 3.29 issue by @kumsumit
+
 ## 1.3.2
 * enhance: The latitude and longitude formats obtained by Android and iOS are unified by @yohom
 * flutter 3.16 support added.(android name space added to support AGP 8

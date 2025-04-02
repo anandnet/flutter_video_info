@@ -1,6 +1,6 @@
 name: flutter_video_info
 description: A flutter plugin to get basic metadata information of a video file.
-version: 1.3.2
+version: 1.3.3
 homepage: https://github.com/anandnet/flutter_video_info
 
 environment:
